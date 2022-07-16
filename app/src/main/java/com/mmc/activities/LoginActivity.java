@@ -12,6 +12,7 @@ import com.mmc.R;
 import com.mmc.models.Account;
 import com.mmc.models.AuthResponse;
 import com.mmc.models.Course;
+import com.mmc.models.CourseResponse;
 import com.mmc.repositories.AccountRepository;
 import com.mmc.repositories.CourseRepository;
 import com.mmc.services.AccountService;
@@ -21,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.Serializable;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     EditText etEmail, etPassword;
@@ -36,6 +37,10 @@ public class LoginActivity extends AppCompatActivity {
         accountService = AccountRepository.getAccountService();
         initComponents();
         initListeners();
+
+
+        CourseService courseService = CourseRepository.getCourseService();
+
 
 //        courseService
 //                .getAllCourses("", "", 1, 10)
@@ -90,10 +95,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initListeners() {
         signInButton.setOnClickListener(v -> {
+            signInButton.setEnabled(false);
             if (!validateInputs()) {
+                signInButton.setEnabled(true);
                 return;
             }
             doLogin();
+            signInButton.setEnabled(true);
         });
         tvSignUp.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -129,9 +137,9 @@ public class LoginActivity extends AppCompatActivity {
                         boolean isSuccess = false;
                         if (response.code() == 200) {
                             AuthResponse authResponse = response.body();
-                            if(authResponse!=null){
+                            if (authResponse != null) {
                                 Account account = authResponse.getData();
-                                if(account!=null){
+                                if (account != null) {
                                     isSuccess = true;
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     Bundle bundle = new Bundle();
@@ -142,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        if(!isSuccess){
+                        if (!isSuccess) {
                             Toast.makeText(LoginActivity.this, "Incorrect login information!", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -152,5 +160,6 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Something went wrong with our server. Please try again later.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 }

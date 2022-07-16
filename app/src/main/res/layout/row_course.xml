@@ -1,6 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+<LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:paddingVertical="14dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_weight="0.4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                app:srcCompat="@drawable/course_img"
+                android:id="@+id/ivCourseImage"
+                tools:layout_editor_absoluteY="0dp" tools:layout_editor_absoluteX="0dp"/>
+        <TextView
+                android:textAlignment="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="10dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/white"
+                android:background="@drawable/round_corner_top_right_5dp"
+                android:backgroundTint="#3762FD"
+                android:text="Web Design"
+                android:maxWidth="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/tvSubjectName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_weight="0.6"
+            android:layout_width="0dp"
+            android:paddingStart="15dp"
+            android:layout_height="match_parent">
+        <TextView
+                android:textAlignment="textStart"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="#191847"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Build Responsive Real-World Websites with HTML and CSS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvCourseName"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="RtlCompat"/>
+        <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvCourseName" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:id="@+id/linearLayout">
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:id="@+id/ivMentorImage"
+                    android:src="@drawable/default_profile"
+            />
+            <TextView
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#55555A"
+                    android:layout_marginStart="8dp"
+                    android:textAlignment="textStart"
+                    android:text="Duy Nguyen"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tvMentorFullName" android:layout_weight="1"
+                    tools:ignore="RtlCompat"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                    android:tint="#f5b455"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp" app:srcCompat="@drawable/ic_rating"
+                    android:id="@+id/ivRating" android:layout_weight="1.5"/>
+            <TextView
+                    android:textColor="#595959"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="13sp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:text="4.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:id="@+id/tvRating"
+                    android:layout_weight="2"/>
+            <ImageView
+                    android:tint="#2B3D7E"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp" app:srcCompat="@drawable/ic_users"
+                    android:id="@+id/ivMentees" android:layout_weight="1.5"/>
+            <TextView
+                    android:textColor="#595959"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="13sp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:text="120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:id="@+id/tvMentees"
+                    android:layout_weight="2"/>
+            <TextView
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/round_corner_24dp"
+                    android:backgroundTint="#E6E8FF"
+                    android:paddingVertical="4dp"
+                    android:layout_weight="3"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#4851B8"
+                    android:text="$150"
+                    android:maxWidth="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/tvCoursePrice"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="RtlCompat"/>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

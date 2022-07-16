@@ -13,6 +13,7 @@ import com.mmc.fragments.ProfileFragment;
 import com.mmc.models.Account;
 
 public class HomeActivity extends AppCompatActivity {
+
     Account loggedInUser;
     BottomNavigationView bottomNavigationView;
 
@@ -67,7 +68,6 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
     }
-
     private HomeFragment getHomeFragment() {
         HomeFragment homeFragment = new HomeFragment();
         Bundle bundle = new Bundle();

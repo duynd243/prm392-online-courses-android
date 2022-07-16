@@ -8,9 +8,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.chip.ChipGroup;
 import com.mmc.R;
+import com.mmc.adapters.HomeCourseAdapter;
 import com.mmc.models.Account;
+import com.mmc.models.Course;
+import com.mmc.models.CourseResponse;
+import com.mmc.repositories.CourseRepository;
+import com.mmc.services.CourseService;
 import com.mmc.utils.GreetingUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,36 +33,28 @@ import com.mmc.utils.GreetingUtils;
  */
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private enum CourseType {
+        ALL,
+        NEWEST,
+        POPULAR,
+        MOST_RATED,
+    }
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     TextView tvGreeting, tvUserFullName;
-
     Account loggedInUser;
+    ChipGroup chipGroupCourse;
+    CourseService courseService;
+    RecyclerView rvCourses;
+    HomeCourseAdapter courseAdapter;
+
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,10 +63,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
             loggedInUser = (Account) getArguments().getSerializable("LOGGED_IN_USER");
         }
     }
@@ -70,6 +73,33 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        courseService = CourseRepository.getCourseService();
+        chipGroupCourse = view.findViewById(R.id.chipGroupCourse);
+        rvCourses = view.findViewById(R.id.rvCourses);
+        courseAdapter = new HomeCourseAdapter(getContext(), new ArrayList<>());
+        rvCourses.setAdapter(courseAdapter);
+        rvCourses.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        updateCoursesAdapter(CourseType.ALL);
+
+        chipGroupCourse.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            int checkedChipId = chipGroupCourse.getCheckedChipId();
+            switch (checkedChipId) {
+                case R.id.chipAll:
+                    updateCoursesAdapter(CourseType.ALL);
+                    break;
+                case R.id.chipNewest:
+                    updateCoursesAdapter(CourseType.NEWEST);
+                    break;
+                case R.id.chipPopular:
+                    updateCoursesAdapter(CourseType.POPULAR);
+                    break;
+                case R.id.chipMostRated:
+                    updateCoursesAdapter(CourseType.MOST_RATED);
+                    break;
+            }
+        });
+
         tvGreeting = view.findViewById(R.id.tvGreeting);
         tvGreeting.setText(GreetingUtils.getGreeting() + ",");
         tvUserFullName = view.findViewById(R.id.tvUserFullName);
@@ -80,5 +110,40 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    public void updateCoursesAdapter(CourseType courseType) {
+
+        int page = 1;
+        int size = 10;
+        String sort = "";
+
+        if (courseType == CourseType.NEWEST) {
+            sort = "createDate desc";
+        } else if (courseType == CourseType.POPULAR) {
+            sort = "currentNumberMentee desc";
+        } else if (courseType == CourseType.MOST_RATED) {
+            sort = "totalRating desc";
+        }
+
+        courseService
+                .getAllCourses("", sort, page, size)
+                .enqueue(new Callback<CourseResponse>() {
+                    @Override
+                    public void onResponse(Call<CourseResponse> call, Response<CourseResponse> response) {
+                        if (response.code() == 200) {
+                            CourseResponse courseResponse = response.body();
+                            if (courseResponse != null && courseResponse.getData() != null) {
+                                List<Course> courses = courseResponse.getData();
+                                courseAdapter.setCourses(courses);
+                                courseAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CourseResponse> call, Throwable t) {
+                    }
+                });
     }
 }
