@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingVertical="40dp"
+        android:paddingHorizontal="40dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.CourseDetailActivity">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent">
+        <ImageButton
+                android:background="@drawable/round_corner_24dp"
+                android:backgroundTint="#FDE4E4"
+                android:tint="#BC133B"
+                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_favorite"
+        />
+        <Button
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:height="50dp"
+                android:id="@+id/btnBuy"
+                android:textColor="@color/white"
+                android:background="@drawable/round_corner_5dp"
+                android:backgroundTint="#262439"
+                android:elevation="50dp"
+                android:text="Buy Now For $120"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    </LinearLayout>
+
+    <ImageButton
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="14dp"
+            android:elevation="20dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/btnGoBack"
+            android:src="@drawable/ic_go_back"
+            android:background="@drawable/round_corner_24dp"
+            android:backgroundTint="#1C2030"
+            android:tint="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/scrollView2"
+
+                android:paddingBottom="60dp"
+    >
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+        >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutCourseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/course_img"
+                        tools:layout_editor_absoluteY="0dp"
+                        tools:layout_editor_absoluteX="0dp" android:id="@+id/ivCourseImage"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout
+                    android:layout_below="@+id/layoutCourseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" tools:ignore="UselessParent">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:paddingVertical="4dp"
+                                android:paddingHorizontal="14dp"
+                                android:textAlignment="center"
+                                android:layout_marginVertical="8dp"
+                                android:textColor="#4851B8"
+                                android:background="#E6E8FF"
+                                android:layout_gravity="center"
+                                android:maxWidth="200dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Web Design"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:id="@+id/tvSubjectName"
+                                tools:ignore="RtlCompat"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                        <TextView
+                                android:layout_marginEnd="8dp"
+                                android:textColor="#595959"
+                                android:fontFamily="@font/roboto_medium"
+                                android:textSize="13sp"
+                                android:textAlignment="center"
+                                android:layout_gravity="center"
+                                android:text="Rating: "
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toTopOf="@+id/tvCourseRating"
+                                app:layout_constraintBottom_toBottomOf="@+id/tvCourseRating"
+                                app:layout_constraintEnd_toStartOf="@+id/tvCourseRating"/>
+
+                        <TextView
+                                android:layout_marginEnd="6dp"
+                                android:textColor="#595959"
+                                android:fontFamily="@font/roboto_medium"
+                                android:textSize="13sp"
+                                android:textAlignment="center"
+                                android:layout_gravity="center"
+                                android:text="4.5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tvCourseRating"
+                                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                                app:layout_constraintEnd_toStartOf="@+id/imageView3"/>
+                        <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_rating"
+                                android:tint="#f5b455"
+                                android:layout_gravity="center"
+                                android:id="@+id/imageView3"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                            android:id="@+id/tvCourseName"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Build Responsive Real-World Websites with HTML and CSS"
+                            android:textColor="#191847"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/poppins_semibold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/layoutCourseImage"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:id="@+id/ivMentorImage"
+                                android:src="@drawable/default_profile"/>
+
+                        <TextView
+                                android:layout_marginStart="16dp"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mentor Name"
+                                android:textColor="#191847"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:id="@+id/tvMentorName"
+                                app:layout_constraintStart_toStartOf="@+id/ivMentorImage"
+                                app:layout_constraintTop_toTopOf="@+id/ivMentorImage"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                    </LinearLayout>
+                    <TextView
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/poppins_regular"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="This course will improve your ability to influence people in situations where you cannot use formal authority. You will learn about effective ways to build, develop, and sustain a power base in your organization. You will also learn influence tactics that enable you to be more persuasive and influential in working with your superiors, peers, and even subordinates. In addition, you will learn how to build and maintain high-quality relationships to further maximize your informal power and ability to influence others. Importantly, you will distinguish between influence and manipulation and learn how to protect yourself from the unwanted influence of others. The influence strategies you learn in this course will make you a more confident and influential leader, presenter, and decision-maker. You will more effective in pitching business ideas to your superiors, influencing customers, and building coalitions across stakeholders. This course will not only give you strategic guidance on how to develop and maintain your network for influence and power, but we will also equip you with specific tactics and strategies that are proven to work for gaining power and influencing people."
+                    />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

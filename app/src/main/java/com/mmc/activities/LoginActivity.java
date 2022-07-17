@@ -2,7 +2,6 @@ package com.mmc.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mmc.R;
 import com.mmc.models.Account;
 import com.mmc.models.AuthResponse;
-import com.mmc.models.Course;
-import com.mmc.models.CourseResponse;
 import com.mmc.repositories.AccountRepository;
 import com.mmc.repositories.CourseRepository;
 import com.mmc.services.AccountService;
@@ -21,8 +18,6 @@ import com.mmc.utils.ValidationUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     EditText etEmail, etPassword;
@@ -95,13 +90,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initListeners() {
         signInButton.setOnClickListener(v -> {
-            signInButton.setEnabled(false);
             if (!validateInputs()) {
                 signInButton.setEnabled(true);
                 return;
             }
             doLogin();
-            signInButton.setEnabled(true);
         });
         tvSignUp.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -129,6 +122,9 @@ public class LoginActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString();
         Account loginAccount = new Account("", email, password);
+
+        signInButton.setClickable(false);
+        signInButton.setEnabled(false);
         accountService
                 .login(loginAccount)
                 .enqueue(new Callback<AuthResponse>() {
@@ -160,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Something went wrong with our server. Please try again later.", Toast.LENGTH_SHORT).show();
                     }
                 });
-
+        signInButton.setEnabled(true);
+        signInButton.setClickable(true);
     }
 }

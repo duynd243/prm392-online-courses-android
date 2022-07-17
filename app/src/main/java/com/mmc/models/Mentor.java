@@ -1,6 +1,8 @@
 package com.mmc.models;
 
-public class Mentor {
+import java.io.Serializable;
+
+public class Mentor implements Serializable {
     private long id;
     private String fullName;
     private String imageUrl;
