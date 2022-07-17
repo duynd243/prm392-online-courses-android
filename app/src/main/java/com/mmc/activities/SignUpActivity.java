@@ -91,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
         String fullName = etFullName.getText().toString().trim();
         String password = etPassword.getText().toString();
 
-        Account signUpAccount = new Account(fullName, email, password);
+        Account signUpAccount = new Account(0, fullName, email, password);
         accountService
                 .register(signUpAccount)
                 .enqueue(new Callback<AuthResponse>() {

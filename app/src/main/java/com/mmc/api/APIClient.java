@@ -2,7 +2,6 @@ package com.mmc.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class APIClient {
     private static final String COURSE_API_BASE_URL = "https://mentor-mentee-connect-api.tk/api/v1/";

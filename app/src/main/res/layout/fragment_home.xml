@@ -55,7 +55,7 @@
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
                     android:text="Find a perfect course for you"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView4"

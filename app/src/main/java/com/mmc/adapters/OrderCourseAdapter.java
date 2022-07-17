@@ -1,7 +1,6 @@
 package com.mmc.adapters;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mmc.R;
-import com.mmc.activities.CourseDetailActivity;
-import com.mmc.activities.HomeActivity;
 import com.mmc.models.Course;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class HomeCourseAdapter extends RecyclerView.Adapter<HomeCourseAdapter.ViewHolder> {
+public class OrderCourseAdapter extends RecyclerView.Adapter<OrderCourseAdapter.ViewHolder> {
 
-    private HomeActivity context;
+    private Context context;
     private List<Course> courses;
 
-    public HomeCourseAdapter(HomeActivity context, List<Course> courses) {
+    public OrderCourseAdapter(Context context, List<Course> courses) {
         this.context = context;
         this.courses = courses;
     }
@@ -61,19 +57,6 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<HomeCourseAdapter.Vi
         if (course.getImageUrl() != null) {
             Glide.with(context).load(course.getImageUrl()).into(holder.ivCourseImage);
         }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, CourseDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("COURSE", course);
-                bundle.putSerializable("LOGGED_IN_USER", context.getLoggedInUser());
-                bundle.putSerializable("ORDERS", (Serializable) context.getAllOrdersOfUser());
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-            }
-        });
     }
 
     @Override

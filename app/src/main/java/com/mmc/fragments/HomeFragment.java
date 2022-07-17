@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.ChipGroup;
 import com.mmc.R;
+import com.mmc.activities.HomeActivity;
 import com.mmc.adapters.HomeCourseAdapter;
 import com.mmc.models.Account;
 import com.mmc.models.Course;
@@ -76,7 +77,7 @@ public class HomeFragment extends Fragment {
         courseService = CourseRepository.getCourseService();
         chipGroupCourse = view.findViewById(R.id.chipGroupCourse);
         rvCourses = view.findViewById(R.id.rvCourses);
-        courseAdapter = new HomeCourseAdapter(getContext(), new ArrayList<>());
+        courseAdapter = new HomeCourseAdapter((HomeActivity) getContext(), new ArrayList<>());
         rvCourses.setAdapter(courseAdapter);
         rvCourses.setLayoutManager(new LinearLayoutManager(getContext()));
 

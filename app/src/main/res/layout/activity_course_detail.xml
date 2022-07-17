@@ -9,11 +9,16 @@
         android:layout_height="match_parent"
         tools:context=".activities.CourseDetailActivity">
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  app:layout_constraintBottom_toBottomOf="parent"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent">
+    <LinearLayout
+            android:elevation="50dp"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:focusable="true">
         <ImageButton
+                android:id="@+id/btnFavorite"
                 android:background="@drawable/round_corner_24dp"
                 android:backgroundTint="#FDE4E4"
                 android:tint="#BC133B"
@@ -30,9 +35,9 @@
                 android:textColor="@color/white"
                 android:background="@drawable/round_corner_5dp"
                 android:backgroundTint="#262439"
-                android:elevation="50dp"
                 android:text="Buy Now For $120"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -85,6 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" tools:ignore="UselessParent">
                     <androidx.constraintlayout.widget.ConstraintLayout
+                            android:paddingTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView

@@ -1,6 +1,7 @@
 package com.mmc.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +12,7 @@ import com.mmc.R;
 import com.mmc.models.Account;
 import com.mmc.models.AuthResponse;
 import com.mmc.repositories.AccountRepository;
-import com.mmc.repositories.CourseRepository;
 import com.mmc.services.AccountService;
-import com.mmc.services.CourseService;
 import com.mmc.utils.ValidationUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,56 +28,18 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        String email = sharedPreferences.getString("EMAIL", "");
+        String userId = sharedPreferences.getString("USER_ID", "");
+        if (!email.isEmpty() && !userId.isEmpty()) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+
         accountService = AccountRepository.getAccountService();
         initComponents();
         initListeners();
-
-
-        CourseService courseService = CourseRepository.getCourseService();
-
-
-//        courseService
-//                .getAllCourses("", "", 1, 10)
-//                .enqueue(
-//                        new Callback<CourseResponse>() {
-//                            @Override
-//                            public void onResponse(Call<CourseResponse> call, Response<CourseResponse> response) {
-//                                List<Course> courses = response.body().getData();
-//                                for(Course course : courses) {
-//                                    Log.d("CoursId", String.valueOf(course.getId()));
-//                                    Log.d("CoursName", course.getName());
-//                                    Log.d("Mentor", course.getMentor().getFullName());
-//                                    Log.d("Subject", course.getSubject().getName());
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<CourseResponse> call, Throwable t) {
-//                                Log.d("LoginActivity", "onFailure: " + t.getMessage());
-//                            }
-//                        }
-//                );
-
-//        courseService
-//                .getCourseById(19)
-//                .enqueue(
-//                        new Callback<Course>() {
-//                            @Override
-//                            public void onResponse(Call<Course> call, Response<Course> response) {
-//                                Log.d("Response Code", String.valueOf(response.code()));
-//                                Log.d("CoursId", String.valueOf(course.getId()));
-//                                Log.d("CoursName", course.getName());
-//                                Log.d("Mentor", course.getMentor().getFullName());
-//                                Log.d("Subject", course.getSubject().getName());
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<Course> call, Throwable t) {
-//
-//                            }
-//                        }
-//                );
-//        ;
     }
 
     private void initComponents() {
@@ -121,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     private void doLogin() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString();
-        Account loginAccount = new Account("", email, password);
+        Account loginAccount = new Account(0, "", email, password);
 
         signInButton.setClickable(false);
         signInButton.setEnabled(false);
@@ -138,9 +99,12 @@ public class LoginActivity extends AppCompatActivity {
                                 if (account != null) {
                                     isSuccess = true;
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("LOGGED_IN_USER", account);
-                                    intent.putExtras(bundle);
+                                    SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("EMAIL", email);
+                                    editor.putString("USER_ID", String.valueOf(account.getId()));
+                                    editor.putString("FULL_NAME", account.getFullName());
+                                    editor.apply();
                                     startActivity(intent);
                                     finish();
                                 }

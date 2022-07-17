@@ -3,6 +3,7 @@ package com.mmc.models;
 import java.io.Serializable;
 
 public class Account implements Serializable {
+    private long id;
     private String fullName;
     private String email;
     private String password;
@@ -10,10 +11,19 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(String fullName, String email, String password) {
+    public Account(long id, String fullName, String email, String password) {
+        this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {
