@@ -12,6 +12,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.MMC">
         <activity
+                android:name=".activities.SearchResultActivity"
+                android:exported="true"/>
+        <activity
                 android:name=".activities.OrdersActivity"
                 android:exported="true"/>
         <activity

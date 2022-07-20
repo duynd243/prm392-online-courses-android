@@ -7,8 +7,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.OrdersActivity">
-
+        tools:context=".activities.SearchResultActivity">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +24,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Your Orders"
+                android:text="Search"
                 android:textStyle="bold"
                 android:textSize="30sp"
                 android:textColor="#191847"
@@ -33,20 +32,33 @@
                 android:layout_height="wrap_content" android:id="@+id/tvHeading"/>
     </LinearLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:visibility="visible"
-            android:id="@+id/rvCourses"
+    <LinearLayout
+            android:id="@+id/llSearchResult"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-    />
+            android:layout_weight="1">
+        <TextView
+                android:textColor="#2E2E2E"
+                android:textSize="16sp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Found following results for your search"
+        />
+        <androidx.recyclerview.widget.RecyclerView
+                android:visibility="visible"
+                android:id="@+id/rvCourses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
     <TextView
             android:paddingHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" android:id="@+id/tvNoOrders"
-            android:text="You currently do not have any orders."
+            android:layout_weight="1" android:id="@+id/tvNotFound"
+            android:text="We couldn't find any results for your search."
             android:textSize="24sp"
             android:textColor="#4E4E4E" android:gravity="center"
             android:visibility="gone"/>

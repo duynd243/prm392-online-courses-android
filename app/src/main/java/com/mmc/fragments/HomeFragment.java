@@ -1,9 +1,12 @@
 package com.mmc.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,19 +16,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.ChipGroup;
 import com.mmc.R;
 import com.mmc.activities.HomeActivity;
-import com.mmc.adapters.HomeCourseAdapter;
+import com.mmc.activities.SearchResultActivity;
+import com.mmc.adapters.CourseAdapter;
 import com.mmc.models.Account;
 import com.mmc.models.Course;
 import com.mmc.models.CourseResponse;
 import com.mmc.repositories.CourseRepository;
+import com.mmc.repositories.OrderRepository;
 import com.mmc.services.CourseService;
+import com.mmc.services.OrderService;
 import com.mmc.utils.GreetingUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,13 +48,16 @@ public class HomeFragment extends Fragment {
         POPULAR,
         MOST_RATED,
     }
-
+    EditText etSearchCourse;
+    ImageButton btnSearchCourse;
     TextView tvGreeting, tvUserFullName;
     Account loggedInUser;
     ChipGroup chipGroupCourse;
     CourseService courseService;
+
+    OrderService orderService;
     RecyclerView rvCourses;
-    HomeCourseAdapter courseAdapter;
+    CourseAdapter courseAdapter;
 
 
     public HomeFragment() {
@@ -75,9 +86,12 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         courseService = CourseRepository.getCourseService();
+        orderService = OrderRepository.getOrderService();
+        etSearchCourse = view.findViewById(R.id.etSearchCourse);
+        btnSearchCourse = view.findViewById(R.id.btnSearchCourse);
         chipGroupCourse = view.findViewById(R.id.chipGroupCourse);
         rvCourses = view.findViewById(R.id.rvCourses);
-        courseAdapter = new HomeCourseAdapter((HomeActivity) getContext(), new ArrayList<>());
+        courseAdapter = new CourseAdapter(getContext(), new ArrayList<>());
         rvCourses.setAdapter(courseAdapter);
         rvCourses.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -105,6 +119,16 @@ public class HomeFragment extends Fragment {
         tvGreeting.setText(GreetingUtils.getGreeting() + ",");
         tvUserFullName = view.findViewById(R.id.tvUserFullName);
         tvUserFullName.setText(loggedInUser.getFullName());
+
+        btnSearchCourse.setOnClickListener(v -> {
+            String searchValue = etSearchCourse.getText().toString();
+            Intent intent = new Intent(getContext(), SearchResultActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("SEARCH_VALUE", searchValue);
+            bundle.putSerializable("ORDERS", (Serializable) ((HomeActivity) Objects.requireNonNull(getContext())).getAllOrdersOfUser());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
         return view;
     }
 

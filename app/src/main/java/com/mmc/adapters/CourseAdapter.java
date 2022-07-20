@@ -1,6 +1,8 @@
 package com.mmc.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mmc.R;
+import com.mmc.activities.CourseDetailActivity;
+import com.mmc.activities.HomeActivity;
+import com.mmc.activities.SearchResultActivity;
 import com.mmc.models.Course;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class OrderCourseAdapter extends RecyclerView.Adapter<OrderCourseAdapter.ViewHolder> {
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
     private Context context;
     private List<Course> courses;
+    private boolean itemClickable;
 
-    public OrderCourseAdapter(Context context, List<Course> courses) {
+    public CourseAdapter(Context context, List<Course> courses) {
         this.context = context;
         this.courses = courses;
     }
@@ -57,6 +64,25 @@ public class OrderCourseAdapter extends RecyclerView.Adapter<OrderCourseAdapter.
         if (course.getImageUrl() != null) {
             Glide.with(context).load(course.getImageUrl()).into(holder.ivCourseImage);
         }
+
+        if (context instanceof HomeActivity || context instanceof SearchResultActivity) {
+            holder.itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(context, CourseDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("COURSE", course);
+                if (context instanceof HomeActivity) {
+                    bundle.putSerializable("LOGGED_IN_USER", ((HomeActivity) context).getLoggedInUser());
+                    bundle.putSerializable("ORDERS", (Serializable) ((HomeActivity) context).getAllOrdersOfUser());
+                } else {
+                    bundle.putSerializable("LOGGED_IN_USER", ((SearchResultActivity) context).getLoggedInUser());
+                    bundle.putSerializable("ORDERS", (Serializable) ((SearchResultActivity) context).getAllOrdersOfUser());
+                }
+
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            });
+        }
+
     }
 
     @Override

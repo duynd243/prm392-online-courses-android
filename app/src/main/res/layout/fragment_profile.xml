@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="40dp"
-        android:paddingHorizontal="40dp"
+        android:paddingTop="40dp"
+        android:paddingHorizontal="30dp"
         tools:context=".fragments.ProfileFragment">
     >
     <LinearLayout
-
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView" android:layout_weight="1"/>
         <androidx.constraintlayout.widget.ConstraintLayout
-
+                android:layout_marginTop="20dp"
                 android:background="@drawable/round_corner_5dp"
                 android:backgroundTint="#F3F3F3"
                 android:paddingVertical="10dp"

@@ -94,6 +94,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                     dialog.dismiss();
                 });
                 builder.show();
+
             });
         }
     }

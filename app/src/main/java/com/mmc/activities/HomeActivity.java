@@ -20,7 +20,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +124,6 @@ public class HomeActivity extends AppCompatActivity {
         ProfileFragment profileFragment = new ProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("LOGGED_IN_USER", loggedInUser);
-        bundle.putSerializable("ORDERS", (Serializable) allOrdersOfUser);
         profileFragment.setArguments(bundle);
         return profileFragment;
     }

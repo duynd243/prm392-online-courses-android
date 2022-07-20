@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.mmc.R;
+import com.mmc.activities.HomeActivity;
 import com.mmc.activities.LoginActivity;
 import com.mmc.activities.OrdersActivity;
 import com.mmc.models.Account;
@@ -48,7 +49,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             loggedInUser = (Account) getArguments().getSerializable("LOGGED_IN_USER");
-            allOrdersOfUser = (List<Order>) getArguments().getSerializable("ORDERS");
+            allOrdersOfUser =  ((HomeActivity) Objects.requireNonNull(getContext())).getAllOrdersOfUser();
         }
     }
 

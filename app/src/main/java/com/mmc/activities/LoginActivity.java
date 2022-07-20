@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         if (!email.isEmpty() && !userId.isEmpty()) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
+            finish();
         }
 
         accountService = AccountRepository.getAccountService();
